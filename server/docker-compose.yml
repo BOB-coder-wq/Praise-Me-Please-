@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/praise-portal
+      - FRONTEND_URL=http://localhost:8080
+    depends_on:
+      - mongo
+    networks:
+      - praise-network
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=praise-portal
+    networks:
+      - praise-network
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+
+networks:
+  praise-network:
+    driver: bridge
