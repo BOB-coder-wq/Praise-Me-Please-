@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praise & Pay Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Portal -->
+    <div id="mainPortal" class="page">
+        <header class="header">
+            <h1>🌟 Praise & Pay Portal</h1>
+            <p>Show your appreciation with praise and support!</p>
+        </header>
+
+        <main class="main-content">
+            <div class="left-panel">
+                <h2>Choose Your Praise Level</h2>
+                
+                <div class="praise-card" data-level="basic" data-amount="5">
+                    <h3>💝 Basic Praise</h3>
+                    <p>$5 - A simple thank you message</p>
+                    <button class="btn btn-primary" onclick="selectPraiseLevel('basic', 5, '💝')">Select Basic</button>
+                </div>
+                
+                <div class="praise-card" data-level="premium" data-amount="15">
+                    <h3>⭐ Premium Praise</h3>
+                    <p>$15 - Detailed appreciation with emoji</p>
+                    <button class="btn btn-purple" onclick="selectPraiseLevel('premium', 15, '⭐')">Select Premium</button>
+                </div>
+                
+                <div class="praise-card" data-level="elite" data-amount="50">
+                    <h3>👑 Elite Praise</h3>
+                    <p>$50 - Ultimate praise experience</p>
+                    <button class="btn btn-orange" onclick="selectPraiseLevel('elite', 50, '👑')">Select Elite</button>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <h2>Your Praise Message</h2>
+                
+                <div class="praise-form">
+                    <label for="userName">Name:</label>
+                    <input type="text" id="userName" placeholder="Enter your name">
+                    
+                    <label for="praiseMessage">Your Praise:</label>
+                    <textarea id="praiseMessage" placeholder="Write your praise message here..." rows="5"></textarea>
+                    
+                    <div id="selectedLevel" class="selected-level">No praise level selected</div>
+                    
+                    <button id="btnPay" class="btn btn-green btn-large" onclick="submitPraise()" disabled>
+                        💳 Pay & Submit Praise
+                    </button>
+                </div>
+                
+                <div class="recent-praises">
+                    <h3>Recent Praises</h3>
+                    <div id="praisesList" class="praises-list">
+                        <!-- Praises will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="stats">
+                <span>Total Spent: <strong id="totalSpent">$0.00</strong></span>
+                <span>|</span>
+                <span>Total Praises: <strong id="totalPraises">0</strong></span>
+            </div>
+            <button class="btn btn-red" onclick="showLogin()">🔐 Admin Portal</button>
+        </footer>
+    </div>
+
+    <!-- Login Window -->
+    <div id="loginWindow" class="page hidden">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>🔐 Admin Login</h2>
+                <p>Enter your credentials to access the admin portal</p>
+            </div>
+
+            <div class="login-form">
+                <label for="username">Username:</label>
+                <input type="text" id="username" value="admin">
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password">
+                
+                <div id="loginError" class="error-message hidden"></div>
+                
+                <button class="btn btn-green btn-large" onclick="login()">🔓 Login</button>
+                
+                <p class="hint">Default password: admin123</p>
+            </div>
+
+            <div class="login-footer">
+                <button class="btn btn-purple" onclick="showChangePassword()">🔑 Change Password</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Portal -->
+    <div id="adminPortal" class="page hidden">
+        <header class="admin-header">
+            <div class="admin-title">
+                <h1>💰 Admin Portal - My Praises & Earnings</h1>
+                <p>View all praises and track your earnings</p>
+            </div>
+            <button class="btn btn-red" onclick="logout()">🚪 Logout</button>
+        </header>
+
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <h3>💰 Total Earned</h3>
+                <div id="totalEarned" class="stat-value">$0.00</div>
+            </div>
+            <div class="stat-card">
+                <h3>📝 Total Praises</h3>
+                <div id="adminTotalPraises" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>👑 Elite Praises</h3>
+                <div id="elitePraises" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>⭐ Premium Praises</h3>
+                <div id="premiumPraises" class="stat-value">0</div>
+            </div>
+        </div>
+
+        <main class="admin-content">
+            <div class="admin-controls">
+                <h2>All Praises</h2>
+                <button class="btn btn-green" onclick="refreshAdminData()">🔄 Refresh</button>
+                <button class="btn btn-orange" onclick="exportData()">📊 Export Data</button>
+            </div>
+            
+            <div id="adminPraisesList" class="admin-praises-list">
+                <!-- Admin praises will be added here -->
+            </div>
+        </main>
+
+        <footer class="admin-footer">
+            <button class="btn btn-red" onclick="backToMain()">🔙 Back to Main Portal</button>
+        </footer>
+    </div>
+
+    <!-- Change Password Window -->
+    <div id="changePasswordWindow" class="page hidden">
+        <div class="change-password-container">
+            <div class="change-password-header">
+                <h2>🔑 Change Password</h2>
+            </div>
+
+            <div class="change-password-form">
+                <label for="currentPassword">Current Password:</label>
+                <input type="password" id="currentPassword">
+                
+                <label for="newPassword">New Password:</label>
+                <input type="password" id="newPassword">
+                
+                <label for="confirmPassword">Confirm New Password:</label>
+                <input type="password" id="confirmPassword">
+                
+                <div id="changePasswordError" class="error-message hidden"></div>
+                
+                <div class="button-group">
+                    <button class="btn btn-green" onclick="changePassword()">✅ Change Password</button>
+                    <button class="btn btn-red" onclick="cancelChangePassword()">❌ Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
