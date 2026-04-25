@@ -1,0 +1,242 @@
+<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Praise &amp; Pay Portal" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Background="#2C3E50">
+    
+    <Window.Resources>
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#3498DB"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="5"
+                                BorderThickness="1"
+                                BorderBrush="#2980B9">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#2980B9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="PraiseCard" TargetType="Border">
+            <Setter Property="Background" Value="#34495E"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#4A5F7A"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#1A252F" Padding="20">
+            <StackPanel>
+                <TextBlock Text="🌟 Praise &amp; Pay Portal" 
+                          FontSize="28" 
+                          FontWeight="Bold" 
+                          Foreground="#F39C12"
+                          HorizontalAlignment="Center"/>
+                <TextBlock Text="Show your appreciation with praise and support!" 
+                          FontSize="14" 
+                          Foreground="#BDC3C7"
+                          HorizontalAlignment="Center"
+                          Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Left Panel - Praise Options -->
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBlock Text="Choose Your Praise Level" 
+                          FontSize="20" 
+                          FontWeight="Bold" 
+                          Foreground="White"
+                          Margin="0,0,0,15"/>
+                
+                <Border Style="{StaticResource PraiseCard}">
+                    <StackPanel>
+                        <TextBlock Text="💝 Basic Praise" 
+                                  FontSize="16" 
+                                  FontWeight="Bold" 
+                                  Foreground="#3498DB"/>
+                        <TextBlock Text="$5 - A simple thank you message" 
+                                  FontSize="12" 
+                                  Foreground="#BDC3C7" 
+                                  Margin="0,5,0,10"/>
+                        <Button x:Name="BtnBasic" 
+                                Content="Select Basic" 
+                                Style="{StaticResource ModernButton}"
+                                Click="BtnBasic_Click"/>
+                    </StackPanel>
+                </Border>
+                
+                <Border Style="{StaticResource PraiseCard}">
+                    <StackPanel>
+                        <TextBlock Text="⭐ Premium Praise" 
+                                  FontSize="16" 
+                                  FontWeight="Bold" 
+                                  Foreground="#9B59B6"/>
+                        <TextBlock Text="$15 - Detailed appreciation with emoji" 
+                                  FontSize="12" 
+                                  Foreground="#BDC3C7" 
+                                  Margin="0,5,0,10"/>
+                        <Button x:Name="BtnPremium" 
+                                Content="Select Premium" 
+                                Style="{StaticResource ModernButton}"
+                                Background="#9B59B6"
+                                Click="BtnPremium_Click"/>
+                    </StackPanel>
+                </Border>
+                
+                <Border Style="{StaticResource PraiseCard}">
+                    <StackPanel>
+                        <TextBlock Text="👑 Elite Praise" 
+                                  FontSize="16" 
+                                  FontWeight="Bold" 
+                                  Foreground="#F39C12"/>
+                        <TextBlock Text="$50 - Ultimate praise experience" 
+                                  FontSize="12" 
+                                  Foreground="#BDC3C7" 
+                                  Margin="0,5,0,10"/>
+                        <Button x:Name="BtnElite" 
+                                Content="Select Elite" 
+                                Style="{StaticResource ModernButton}"
+                                Background="#F39C12"
+                                Click="BtnElite_Click"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            
+            <!-- Right Panel - Praise Input & Display -->
+            <StackPanel Grid.Column="1" Margin="10">
+                <TextBlock Text="Your Praise Message" 
+                          FontSize="20" 
+                          FontWeight="Bold" 
+                          Foreground="White"
+                          Margin="0,0,0,15"/>
+                
+                <Border Background="#34495E" CornerRadius="8" Padding="15">
+                    <StackPanel>
+                        <TextBlock Text="Name:" Foreground="#BDC3C7" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtName" 
+                                 Background="#2C3E50" 
+                                 Foreground="White" 
+                                 BorderBrush="#4A5F7A"
+                                 Padding="8"
+                                 Margin="0,0,0,15"/>
+                        
+                        <TextBlock Text="Your Praise:" Foreground="#BDC3C7" Margin="0,0,0,5"/>
+                        <TextBox x:Name="TxtPraise" 
+                                 Background="#2C3E50" 
+                                 Foreground="White" 
+                                 BorderBrush="#4A5F7A"
+                                 Padding="8"
+                                 Height="100"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Margin="0,0,0,15"/>
+                        
+                        <TextBlock x:Name="TxtSelectedLevel" 
+                                  Text="No praise level selected" 
+                                  Foreground="#F39C12" 
+                                  FontWeight="Bold"
+                                  Margin="0,0,0,10"/>
+                        
+                        <Button x:Name="BtnPay" 
+                                Content="💳 Pay &amp; Submit Praise" 
+                                Style="{StaticResource ModernButton}"
+                                Background="#27AE60"
+                                FontSize="16"
+                                Padding="20,15"
+                                Click="BtnPay_Click"
+                                IsEnabled="False"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Recent Praises -->
+                <TextBlock Text="Recent Praises" 
+                          FontSize="18" 
+                          FontWeight="Bold" 
+                          Foreground="White"
+                          Margin="0,20,0,10"/>
+                
+                <ScrollViewer Height="150" 
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="PraisesPanel">
+                        <!-- Praises will be added here dynamically -->
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </Grid>
+        
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="#1A252F" Padding="15">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                    <TextBlock Text="Total Spent: " 
+                              Foreground="#BDC3C7" 
+                              FontSize="14"/>
+                    <TextBlock x:Name="TxtTotalSpent" 
+                              Text="$0.00" 
+                              Foreground="#27AE60" 
+                              FontWeight="Bold" 
+                              FontSize="14"/>
+                    <TextBlock Text=" | " 
+                              Foreground="#BDC3C7" 
+                              FontSize="14" 
+                              Margin="10,0"/>
+                    <TextBlock Text="Total Praises: " 
+                              Foreground="#BDC3C7" 
+                              FontSize="14"/>
+                    <TextBlock x:Name="TxtTotalPraises" 
+                              Text="0" 
+                              Foreground="#3498DB" 
+                              FontWeight="Bold" 
+                              FontSize="14"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="BtnAdminPortal" 
+                            Content="🔐 Admin Portal" 
+                            Style="{StaticResource ModernButton}"
+                            Background="#E74C3C"
+                            Click="BtnAdminPortal_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
