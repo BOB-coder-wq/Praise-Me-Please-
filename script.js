@@ -2,7 +2,7 @@
 let selectedLevel = null;
 let selectedAmount = 0;
 let selectedEmoji = '';
-const API_BASE_URL = window.location.hostname === 'localhost' 
+const API_BASE_URL = window.location.hostname === 'localhost' || window.location.protocol === 'file:' 
     ? 'http://localhost:3000/api' 
     : 'https://your-server-url.com/api'; // Update this for production
 
