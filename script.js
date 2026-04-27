@@ -4,7 +4,7 @@ let selectedAmount = 0;
 let selectedEmoji = '';
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.protocol === 'file:' 
     ? 'http://localhost:3000/api' 
-    : 'https://your-server-url.com/api'; // Update this for production
+    : 'https://praise-portal-backend.onrender.com/api'; // Production Render URL
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
